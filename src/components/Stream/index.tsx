@@ -51,18 +51,18 @@ const StreamCard: FC<Streams> = ({
         <div className="flex flex-col space-y-6">
           <span className="text-white text-xs font-normal">{description}</span>
           <StreamFeatures status={status} audience={audience} />
-          {/* <Button
+          <Button
             fullWidth
             color="amber"
-            onClick={handleClick}
-            disabled={handleDisabled}
+            // onClick={handleClick}
+            // disabled={handleDisabled}
           >
             <p className="text-gray-900 text-sm font-semibold font-['Inter'] leading-tight">
               {status === STREAM_STATUS.LIVE
                 ? `Join for ${cost} ETH`
                 : 'Notify me'}
             </p>
-          </Button> */}
+          </Button>
         </div>
       </div>
     </div>
