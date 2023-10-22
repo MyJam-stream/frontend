@@ -38,28 +38,22 @@ const PushChatCon: React.FC<{ chatid: string }> = ({ chatid }) => {
     }
   }, [pushAccount])
   return (
-    <div className="grid grid-cols-[2]">
-      <Board title="Push Chatting" className="flex flex-col">
-        <div className="flex flex-col justify-between grow">
-          <div className="flex-col gap-y-[25px]">
-            {pushMessages?.map((message, index) => (
-              <div
-                className="text-16px leading-24px text-[#ffffff]"
-                key={index}
-              >
-                {message}
-              </div>
-            ))}
-          </div>
-          <PushAuthCon>
-            <PermissionAuthCon chatid={chatid}>
-              <PushSendInput chatid={chatid} />
-            </PermissionAuthCon>
-          </PushAuthCon>
+    <Board title="Push Chatting" className="flex flex-col">
+      <div className="flex flex-col justify-between grow">
+        <div className="flex-col gap-y-[25px]">
+          {pushMessages?.map((message, index) => (
+            <div className="text-16px leading-24px text-[#ffffff]" key={index}>
+              {message}
+            </div>
+          ))}
         </div>
-      </Board>
-      <QR />
-    </div>
+        <PushAuthCon>
+          <PermissionAuthCon chatid={chatid}>
+            <PushSendInput chatid={chatid} />
+          </PermissionAuthCon>
+        </PushAuthCon>
+      </div>
+    </Board>
   )
 }
 
