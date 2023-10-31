@@ -1,33 +1,22 @@
 'use client'
 import { ComponentProps } from 'react'
-import { useSearchParams } from 'next/navigation'
-import { useAtom } from 'jotai'
+import { useAtom, useAtomValue } from 'jotai'
 import { ChatIcon, TempIcon } from '@/components/Icons'
 import { toggleShowBoardAtom } from '@/components/Board'
 import Button from '@/components/Button'
-import FunctionButton from '@/modules/FunctionBtn'
+import FunctionButton from '@/modules/FunctionBar/FunctionBtn'
 import ClipBoard from '@/modules/ClipBoard'
-import AuthCon from '../AuthCon'
-import { DOMAIN } from '@/utils/constants'
-import { fetchHistoryAtom } from '@/services/push'
+import { paramsAtom } from '@/services/params'
+// import { fetchHistoryAtom } from '@/services/push'
 import { useDonate } from '@/services/monetize'
+import AuthCon from '../AuthCon'
 
-export interface FunctionBarProps {
-  id?: string
-}
-
-const FunctionBar: React.FC<FunctionBarProps & ComponentProps<'div'>> = ({
-  id,
-  ...props
-}) => {
+const FunctionBar: React.FC<ComponentProps<'div'>> = ({ ...props }) => {
   const [showBoard, toggleShowBaord] = useAtom(toggleShowBoardAtom)
   // const [, fetchHistory] = useAtom(fetchHistoryAtom)
   const { donate } = useDonate()
-  //TODO: move to jotai
-  const searchParams = useSearchParams()
-  const chatid = searchParams.get('chatid')
-  const contractAddr = searchParams.get('contractAddr')
-  const creatorAddr = searchParams.get('creatorAddr')
+  const params = useAtomValue(paramsAtom)
+  const DOMAIN = window.location.origin
 
   return (
     <div
@@ -35,7 +24,7 @@ const FunctionBar: React.FC<FunctionBarProps & ComponentProps<'div'>> = ({
       {...props}
     >
       <ClipBoard
-        content={`${DOMAIN}view/${id}?chatid=${chatid}&contractAddr=${contractAddr}&creatorAddr=${creatorAddr}`}
+        content={`${DOMAIN}/view/${params.id}?chatid=${params.chatid}&contractAddr=${params.contractAddr}&creatorAddr=${params.creatorAddr}`}
       />
       <FunctionButton curPath={showBoard} onClick={toggleShowBaord}>
         <ChatIcon curPath={showBoard} />
@@ -49,12 +38,12 @@ const FunctionBar: React.FC<FunctionBarProps & ComponentProps<'div'>> = ({
       >
         <TempIcon curPath={false} />
       </FunctionButton> */}
-      {creatorAddr && (
+      {params.creatorAddr && (
         <AuthCon>
           <Button
             color="amber"
             onClick={() => {
-              donate(creatorAddr)
+              donate(params.creatorAddr as string)
             }}
           >
             Donate 0.01matic

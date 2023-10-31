@@ -3,7 +3,7 @@ import { type ComponentProps, useState, useCallback } from 'react'
 import useClipboard from 'react-use-clipboard'
 import { ShareIcon } from '@/components/Icons'
 import ToolTip from '@/components/Tooltip'
-import FunctionButton from '@/modules/FunctionBtn'
+import FunctionButton from '@/modules/FunctionBar/FunctionBtn'
 
 interface ClipBoardProps {
   content: string

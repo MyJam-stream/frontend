@@ -1,7 +1,7 @@
 'use client'
 import { FC } from 'react'
 import cx from 'clsx'
-import { useSearchParams, useParams } from 'next/navigation'
+import { useParams } from 'next/navigation'
 import { useAtomValue } from 'jotai'
 import { Watch } from '@/components/Watch'
 import { toggleShowBoardAtom } from '@/components/Board'
@@ -12,8 +12,6 @@ import PushChat from '@/modules/PushChat'
 const StreamPage: FC = () => {
   const showBoard = useAtomValue(toggleShowBoardAtom)
   const params = useParams()
-  const searchParams = useSearchParams()
-  const chatid = searchParams.get('chatid')
 
   return (
     <div
@@ -27,7 +25,7 @@ const StreamPage: FC = () => {
         <Watch streamId={params.id as string} />
         <FunctionBar id={params.id as string} />
       </div>
-      <PushChat chatid={chatid} />
+      <PushChat />
     </div>
   )
 }

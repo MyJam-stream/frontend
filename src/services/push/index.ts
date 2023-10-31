@@ -7,13 +7,11 @@ import {
   ConditionType,
 } from '@pushprotocol/restapi'
 import { ethers } from 'ethers'
-import { atomsWithQuery } from 'jotai-tanstack-query'
 
 export const pushAccountAtom = atom<PushAPI | null>(null)
 export const pushAddressAtom = atom<string | null>(null)
 export const pushMessagesAtom = atom<string[]>([])
 export const permissionAtom = atom<boolean>(false)
-export const chatidAtom = atom<string | null>(null)
 
 export const initializePushAtom = atom(null, async (get, set) => {
   try {
@@ -157,19 +155,3 @@ export const checkPermissionAtom = atom(
     }
   }
 )
-
-// export const [polledMessagesAtom] = atomsWithQuery<string[]>((get) => ({
-//   queryKey: ['polledMessages', get(pushAccountAtom)],
-//   queryFn: async () => {
-//     const pushAccount = get(pushAccountAtom)
-//     const chatid = get(chatidAtom)
-//     if (!pushAccount || !chatid) return []
-//     const messages: string[] = []
-//     const historyRes = await pushAccount.chat.history(chatid)
-//     historyRes.forEach((message) => {
-//       messages.push(message.messageContent)
-//     })
-//     return messages
-//   },
-//   refetchInterval: 1000,
-// }))
