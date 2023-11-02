@@ -6,6 +6,7 @@ import { toggleShowBoardAtom } from '@/components/Board'
 import Button from '@/components/Button'
 import FunctionButton from '@/modules/FunctionBar/FunctionBtn'
 import ClipBoard from '@/modules/ClipBoard'
+import useInTransaction from '@/hooks/useIntransaction'
 import { paramsAtom } from '@/services/params'
 // import { fetchHistoryAtom } from '@/services/push'
 import { useDonate } from '@/services/monetize'
@@ -17,6 +18,9 @@ const FunctionBar: React.FC<ComponentProps<'div'>> = ({ ...props }) => {
   const { donate } = useDonate()
   const params = useAtomValue(paramsAtom)
   const DOMAIN = window.location.origin
+  const { handleExecAction, loading } = useInTransaction(() =>
+    donate(params.creatorAddr as string)
+  )
 
   return (
     <div
@@ -40,12 +44,7 @@ const FunctionBar: React.FC<ComponentProps<'div'>> = ({ ...props }) => {
       </FunctionButton> */}
       {params.creatorAddr && (
         <AuthCon>
-          <Button
-            color="amber"
-            onClick={() => {
-              donate(params.creatorAddr as string)
-            }}
-          >
+          <Button loading={loading} color="amber" onClick={handleExecAction}>
             Donate 0.01matic
           </Button>
         </AuthCon>

@@ -11,13 +11,15 @@ import {
   permissionAtom,
 } from '@/services/push'
 import { useMintTokens } from '@/services/monetize'
+import useInTransaction from '@/hooks/useIntransaction'
 
 const AuthCon: React.FC<PropsWithChildren> = ({ children, ...props }) => {
   const account = useAtomValue(accountAtom)
   const { connect } = useConnect()
+  const { handleExecAction, loading } = useInTransaction(connect)
   if (account) return <>{children}</>
   return (
-    <Button onClick={connect} {...props}>
+    <Button loading={loading} onClick={handleExecAction} {...props}>
       Connect
     </Button>
   )
@@ -31,9 +33,10 @@ export const PushAuthCon: React.FC<PropsWithChildren> = ({
 }) => {
   const pushAccount = useAtomValue(pushAddressAtom)
   const [, initializePush] = useAtom(initializePushAtom)
+  const { handleExecAction, loading } = useInTransaction(initializePush)
   if (pushAccount) return <>{children}</>
   return (
-    <Button fullWidth onClick={initializePush} {...props}>
+    <Button loading={loading} fullWidth onClick={handleExecAction} {...props}>
       Connect Push
     </Button>
   )
@@ -57,9 +60,10 @@ export const PermissionAuthCon: React.FC<
       console.log(err)
     }
   }, [contractAddr, checkPermission])
+  const { handleExecAction, loading } = useInTransaction(handleJoin)
   if (permissed) return <>{children}</>
   return (
-    <Button fullWidth onClick={handleJoin} {...props}>
+    <Button loading={loading} fullWidth onClick={handleExecAction} {...props}>
       Join the Chat
     </Button>
   )
