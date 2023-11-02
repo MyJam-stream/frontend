@@ -1,8 +1,9 @@
 'use client'
-import { useCreateStream, Player } from '@livepeer/react'
+import { useCreateStream } from '@livepeer/react'
 import { FC, useEffect, useState, ReactNode, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAtom, useAtomValue } from 'jotai'
+import cx from 'clsx'
 import { streamState, StreamObject } from '@/services/stream'
 import Switch from 'react-switch'
 import { PushAuthCon } from '@/modules/AuthCon'
@@ -88,7 +89,11 @@ const CreateStream: FC<Props> = ({ children }) => {
         </div>
         <PushAuthCon>
           <button
-            className="w-[257px] h-12 px-6 bg-slate-100 rounded-[45px] justify-center items-center gap-2 inline-flex"
+            className={cx(
+              status === 'loading' &&
+                'bg-gray-400 opacity-30 pointer-events-none cursor-not-allowed',
+              'w-[257px] h-12 px-6 bg-slate-100 rounded-[45px] justify-center items-center gap-2 inline-flex'
+            )}
             disabled={status === 'loading' || !createStream}
             onClick={handleCreateStream}
           >

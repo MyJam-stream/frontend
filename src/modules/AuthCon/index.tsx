@@ -20,7 +20,7 @@ const AuthCon: React.FC<PropsWithChildren> = ({ children, ...props }) => {
   if (account) return <>{children}</>
   return (
     <Button loading={loading} onClick={handleExecAction} {...props}>
-      Connect
+      {loading ? 'Connecting' : 'Connect'}
     </Button>
   )
 }
