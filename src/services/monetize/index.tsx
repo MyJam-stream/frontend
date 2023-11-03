@@ -1,9 +1,10 @@
-import { useCallback } from 'react'
+import { use, useCallback } from 'react'
 import { useAtomValue, atom } from 'jotai'
 import { ContractFactory, ethers } from 'ethers'
 import { ComethProvider } from '@cometh/connect-sdk'
 import Abi from '@/utils/contract/abi.json'
 import { erc20Bytecodes } from '@/utils/contract/bytecode'
+import { useShowToast } from '@/components/Toast'
 import { walletAtom, walletAddressAtom } from '../account'
 import { pushAddressAtom } from '../push'
 
@@ -71,6 +72,8 @@ export const useMintTokens = () => {
 
 export const useDonate = () => {
   const wallet = useAtomValue(walletAtom)
+  const showToast = useShowToast()
+
   const donate = useCallback(
     async (recieverAddress: string) => {
       try {
@@ -84,10 +87,14 @@ export const useDonate = () => {
           // gasLimit: 100000000,
         })
         await tx.wait()
-        alert(`donation success hash: ${tx.hash}`)
+        showToast({
+          content: `donation success hash: ${tx.hash}`,
+          type: 'success',
+        })
         return tx.hash
       } catch (err) {
-        throw err
+        // throw err
+        showToast({ content: 'failed to donate', type: 'failed' })
       }
     },
     [wallet]

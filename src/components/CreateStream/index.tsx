@@ -4,8 +4,9 @@ import { FC, useEffect, useState, ReactNode, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAtom, useAtomValue } from 'jotai'
 import cx from 'clsx'
-import { streamState, StreamObject } from '@/services/stream'
 import Switch from 'react-switch'
+import { streamState } from '@/services/stream'
+import { useShowToast } from '../Toast'
 import { PushAuthCon } from '@/modules/AuthCon'
 import { useCreateReciever } from '@/services/monetize'
 import { useCreatePushGroup, pushAddressAtom } from '@/services/push'
@@ -17,7 +18,7 @@ interface Props {
 }
 
 const CreateStream: FC<Props> = ({ children }) => {
-  const [, setCurrentStream] = useAtom(streamState)
+  // const [, setCurrentStream] = useAtom(streamState)
   const [streamName, setStreamName] = useState<string>('')
   const [chatid, setchatid] = useState<string>('')
   const [contractAddr, setContractAddr] = useState<string>('')
@@ -26,6 +27,7 @@ const CreateStream: FC<Props> = ({ children }) => {
   const [monetize, setMonetize] = useState(false)
   const { createReciever } = useCreateReciever()
   const { createPushGroup, createGatedPushGroup } = useCreatePushGroup()
+  const showToast = useShowToast()
   const router = useRouter()
 
   const {
@@ -48,9 +50,13 @@ const CreateStream: FC<Props> = ({ children }) => {
       setchatid(chatid)
       createStream?.()
     } catch (err) {
-      console.log(err)
+      // console.log(err)
+      showToast({
+        content: 'failed to create stream',
+        type: 'failed',
+      })
     }
-  }, [createStream])
+  }, [createStream, showToast])
 
   const handleMonetizeToggle = useCallback((checked: boolean) => {
     setMonetize(checked)

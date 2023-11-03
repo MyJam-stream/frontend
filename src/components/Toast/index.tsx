@@ -3,7 +3,7 @@ import React, { useCallback } from 'react'
 import cx from 'clsx'
 import { uniqueId } from 'lodash-es'
 import { atom, useAtom, useAtomValue } from 'jotai'
-import { CheckedIcon, FailedIcon } from '@/components/Icons'
+// import { CheckedIcon, FailedIcon } from '@/components/Icons'
 
 interface Toast {
   content: string | React.ReactNode
@@ -51,7 +51,7 @@ export const ToastRender: React.FC = () => {
         <div
           key={id}
           className={cx(
-            'px-[24px] h-[48px] flex flex-row sm:justify-between items-center gap-x-[16px] w-[90%] sm:w-fit bg-[#ffffff] rounded-[2px] z-[40] task-card-shadow',
+            'px-[24px] h-[48px] flex flex-row sm:justify-between items-center gap-x-[16px] w-[90%] sm:w-fit bg-[#ffffff] rounded-[60px] z-[40] task-card-shadow',
             type === 'success' && 'text-[#1E8E3E]',
             type === 'warning' || (type === 'failed' && 'text-[#D93026]')
           )}

@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
 import { atom, useAtomValue, useSetAtom, useAtom } from 'jotai'
 import { atomWithStorage } from 'jotai/utils'
+import { useShowToast } from '@/components/Toast'
 
 import {
   ComethWallet,
@@ -31,6 +32,7 @@ export const useConnect = () => {
   const [wallet, setWallet] = useAtom(walletAtom)
   const walletAddress = useAtomValue(walletAddressAtom)
   const setAccount = useSetAtom(accountAtom)
+  const showToast = useShowToast()
 
   const connect = useCallback(async () => {
     try {
@@ -45,9 +47,10 @@ export const useConnect = () => {
       setWallet(wallet)
       setAccount(generatedAddress)
     } catch (err) {
-      throw err
+      // throw err
+      showToast({ content: 'failed to connect', type: 'failed' })
     }
-  }, [wallet, walletAddress])
+  }, [wallet, walletAddress, showToast])
 
   return { connect }
 }
