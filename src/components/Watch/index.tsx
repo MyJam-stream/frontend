@@ -11,7 +11,6 @@ const Watch: FC<{ streamId: string }> = ({ streamId }) => {
 
   useEffect(() => {
     if (!stream) return
-    console.log(stream)
     //TODO:
     setCurrentStream(stream)
   }, [stream])

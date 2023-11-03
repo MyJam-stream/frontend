@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { formatNumber } from '@/utils/numbers'
 import { STREAM_STATUS } from '@/services/stream'
-import { retrieveIcon } from '@/modules/Icons'
+import { HeadphoneIcon } from '@/components/Icons'
 
 type StreamFeaturesProps = {
   audience: number
@@ -12,7 +12,7 @@ const StreamFeatures: FC<StreamFeaturesProps> = ({ status, audience }) => {
   return (
     <div className="flex items-center">
       <div className="flex items-center gap-[0.5rem]">
-        {retrieveIcon('Headphones')}
+        <HeadphoneIcon />
         <p className="text-white text-sm font-medium leading-[21px]">
           {formatNumber(audience)} Listening
         </p>

@@ -56,11 +56,11 @@ export const ToastRender: React.FC = () => {
             type === 'warning' || (type === 'failed' && 'text-[#D93026]')
           )}
         >
-          {type === 'success' ? (
+          {/* {type === 'success' ? (
             <CheckedIcon className="w-[14px] h-[40px]" />
           ) : (
             <FailedIcon className="w-[14px] h-[40px]" />
-          )}
+          )} */}
           <div className="sm:max-w-[1000px] truncate">{content}</div>
         </div>
       ))}

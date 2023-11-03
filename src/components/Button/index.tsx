@@ -39,7 +39,7 @@ const Button = forwardRef<HTMLButtonElement, PropsWithChildren<Props>>(
         )}
         {...props}
       >
-        {loading && <Spin className="mr-[8px] w-[18px] h-[18px]" />}
+        {/* {loading && <Spin className="mr-[8px] w-[18px] h-[18px]" />} */}
         {children}
       </button>
     )
