@@ -2,10 +2,9 @@
 import { useCreateStream } from '@livepeer/react'
 import { FC, useEffect, useState, ReactNode, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
-import { useAtom, useAtomValue } from 'jotai'
+import { useAtomValue } from 'jotai'
 import cx from 'clsx'
 import Switch from 'react-switch'
-import { streamState } from '@/services/stream'
 import { useShowToast } from '../Toast'
 import { PushAuthCon } from '@/modules/AuthCon'
 import { useCreateReciever } from '@/services/monetize'
@@ -13,12 +12,10 @@ import { useCreatePushGroup, pushAddressAtom } from '@/services/push'
 import TextArea from '../TextArea'
 
 interface Props {
-  children?: ReactNode
   title?: string
 }
 
-const CreateStream: FC<Props> = ({ children }) => {
-  // const [, setCurrentStream] = useAtom(streamState)
+const CreateStream: FC<Props> = () => {
   const [streamName, setStreamName] = useState<string>('')
   const [chatid, setchatid] = useState<string>('')
   const [contractAddr, setContractAddr] = useState<string>('')
