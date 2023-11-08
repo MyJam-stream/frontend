@@ -17,7 +17,6 @@ const FunctionBar: React.FC<ComponentProps<'div'>> = ({ ...props }) => {
   // const [, fetchHistory] = useAtom(fetchHistoryAtom)
   const { donate } = useDonate()
   const params = useAtomValue(paramsAtom)
-  console.log('params', params)
   const DOMAIN = window.location.origin
   const { handleExecAction, loading } = useInTransaction(() =>
     donate(params.creatorAddr as string)

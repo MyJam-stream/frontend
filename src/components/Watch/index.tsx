@@ -1,13 +1,15 @@
 'use client'
 import { FC, useEffect } from 'react'
 import { useStream, Player } from '@livepeer/react'
+import { useParams } from 'next/navigation'
 import { useAtom } from 'jotai'
 import { streamState } from '@/services/stream'
 
 const Watch: FC<{ streamId: string }> = ({ streamId }) => {
   const [currentStream, setCurrentStream] = useAtom(streamState)
+  const params = useParams()
 
-  const { data: stream } = useStream(streamId)
+  const { data: stream } = useStream(streamId ?? params.playId)
 
   useEffect(() => {
     if (!stream) return
