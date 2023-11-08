@@ -17,6 +17,7 @@ const FunctionBar: React.FC<ComponentProps<'div'>> = ({ ...props }) => {
   // const [, fetchHistory] = useAtom(fetchHistoryAtom)
   const { donate } = useDonate()
   const params = useAtomValue(paramsAtom)
+  console.log('params', params)
   const DOMAIN = window.location.origin
   const { handleExecAction, loading } = useInTransaction(() =>
     donate(params.creatorAddr as string)
@@ -28,7 +29,7 @@ const FunctionBar: React.FC<ComponentProps<'div'>> = ({ ...props }) => {
       {...props}
     >
       <ClipBoard
-        content={`${DOMAIN}/view/${params.id}?chatid=${params.chatid}&contractAddr=${params.contractAddr}&creatorAddr=${params.creatorAddr}`}
+        content={`${DOMAIN}/view/${params.id}?chatid=${params.chatid}&contractAddr=${params.contractAddr}&creatorAddr=${params.creatorAddr}&id=${params.id}`}
       />
       <FunctionButton curPath={showBoard} onClick={toggleShowBaord}>
         <ChatIcon curPath={showBoard} />

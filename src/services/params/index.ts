@@ -20,17 +20,17 @@ export const paramsAtom = atom<Params>({
 })
 
 export const useGetParams = () => {
-  const params = useParams()
+  // const params = useParams()
   const searchParams = useSearchParams()
   const setParams = useSetAtom(paramsAtom)
 
   const getParams = useCallback(() => {
     if (typeof window === 'undefined') return
-    const id = params?.id as string
     const chatid = searchParams.get('chatid')
     const contractAddr = searchParams.get('contractAddr')
     const creatorAddr = searchParams.get('creatorAddr')
     const title = searchParams.get('title')
+    const id = searchParams.get('id')
     const streamKey = searchParams.get('streamKey')
     setParams({
       id,
