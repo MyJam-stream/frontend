@@ -1,8 +1,10 @@
 'use client'
 import React, { useState, useEffect, type ComponentProps } from 'react'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import cx from 'clsx'
+import MJHeader from '@/assets/icons/MJheader.svg'
 import { HomeIcon, MicIcon, VoiceIcon } from '@/components/Icons'
 import AuthCon from '@/modules/AuthCon'
 import AddressBoard from '../AddrBoard'
@@ -46,16 +48,21 @@ const Navbar: React.FC = () => {
       />
       <nav
         className={cx(
-          'max-w-[1920px] mx-auto flex justify-end items-center w-full h-[80px] px-[32px]'
+          'max-w-[1920px] mx-auto pl-[43px] pr-[33px] flex justify-end items-center w-full h-[80px]'
         )}
       >
-        {/* <Link
+        <Link
           href="/"
-          className="mr-auto sm:mr-[40px] flex flex-row items-center decoration-none"
+          className="mr-auto flex flex-row items-center decoration-none"
         >
-          <div className="text-[32px] font-bold text-[#ffffff]">MyJam</div>
-        </Link> */}
-        <ul className="navbar-linkArea mr-auto display-none hidden sm:visible sm:flex items-center justify-end gap-x-[12px] w-full h-full text-[16px] font-semibold">
+          <Image
+            src={MJHeader}
+            alt=""
+            className="select-none w-[118px] h-[30px]"
+            draggable={false}
+          />
+        </Link>
+        <ul className="navbar-linkArea mr-auto display-none hidden sm:visible sm:flex items-center justify-end grow gap-x-[12px] h-full text-[16px] font-semibold">
           <NavLink href="/" curPath={curPath === '/' || curPath === '/home'}>
             <HomeIcon curPath={curPath === '/' || curPath === '/home'} />
           </NavLink>

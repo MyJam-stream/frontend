@@ -32,7 +32,7 @@ export default function RootLayout({
           <Navbar />
           <Providers>
             <ToastRender />
-            <div className="relative mt-[80px] min-h-[calc(100vh-80px)]">
+            <div className="relative mt-[80px] w-full min-h-[calc(100vh-80px)] max-w-[1920px]">
               {children}
             </div>
           </Providers>
