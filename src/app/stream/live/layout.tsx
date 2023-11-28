@@ -11,5 +11,5 @@ export default function DashboardLayout({
   useLayoutEffect(() => {
     getParams()
   }, [])
-  return <section>{children}</section>
+  return <section className="w-full">{children}</section>
 }

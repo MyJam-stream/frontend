@@ -8,11 +8,7 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {
-      screens: {
-        min: '500px',
-      },
-    },
+    extend: {},
   },
   plugins: [],
 }

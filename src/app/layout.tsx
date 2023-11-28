@@ -4,6 +4,7 @@ import MyJam from '@/assets/icons/myJam.svg'
 import { ToastRender } from '@/components/Toast'
 import Providers from '@/modules/Providers'
 import Navbar from '@/modules/NavBar'
+import Footer from '@/modules/Footer'
 
 export const metadata: Metadata = {
   title: 'MyJam',
@@ -32,10 +33,11 @@ export default function RootLayout({
           <Navbar />
           <Providers>
             <ToastRender />
-            <div className="relative mt-[80px] w-full min-h-[calc(100vh-80px)] max-w-[1920px]">
+            <div className="relative mt-[80px] flex flex-col items-center w-full min-h-[calc(100vh-80px)] max-w-[1920px]">
               {children}
             </div>
           </Providers>
+          <Footer />
         </>
       </body>
     </html>
