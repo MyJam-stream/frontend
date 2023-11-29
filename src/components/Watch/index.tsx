@@ -33,9 +33,6 @@ const Watch: FC<{ streamId: string }> = ({ streamId }) => {
         title={currentStream?.name}
         playbackId={currentStream?.playbackId}
       />
-      <span className="text-white text-base font-normal leading-normal">
-        Live streaming description! New album coming soon!
-      </span>
       {/* <Button color="amber">Donate</Button> */}
     </div>
   )
