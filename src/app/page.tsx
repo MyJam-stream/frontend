@@ -7,6 +7,7 @@ import Guitar from '@/assets/imgs/guitar.png'
 import SGrass from '@/assets/imgs/sGrass.png'
 import WaterMelon from '@/assets/imgs/watermelon.png'
 import Button from '@/components/Button'
+import Roadmap from './Roadmap'
 
 export default function Home() {
   return (
@@ -61,6 +62,7 @@ export default function Home() {
         <div className="col-start-1 col-span-3 md:col-span-4 justify-self-center w-[98%] bg-gradient-to-b from-green-950 via-gray-800 to-teal-950 rounded-[20px] shadow-[-37px_55px_106px_17px_#A52C37] border-2 border-zinc-600"></div>
       </div>
       <AboutUs />
+      <Roadmap />
     </>
   )
 }
