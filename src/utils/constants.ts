@@ -35,3 +35,5 @@ export const RoadmapUnpassedItems: RoadmapItemProps[] = [
       "Explore opportunities for cross-platform integration, expanding MyJam's accessibility.",
   },
 ]
+
+export const CHAIN_ID = '80001'

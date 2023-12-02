@@ -6,7 +6,7 @@ import Link from 'next/link'
 import cx from 'clsx'
 import MJHeader from '@/assets/icons/MJheader.svg'
 import { HomeIcon, MicIcon, VoiceIcon } from '@/components/Icons'
-import AuthCon from '@/modules/AuthCon'
+import { PushAuthCon } from '@/modules/AuthCon'
 import AddressBoard from '../AddrBoard'
 import Mobile from './Mobile'
 import './index.css'
@@ -74,9 +74,9 @@ const Navbar: React.FC = () => {
           </NavLink>
         </ul>
         <div className="ml-[12px] flex flex-row justify-between items-center gap-x-[8px]">
-          <AuthCon>
+          <PushAuthCon>
             <AddressBoard />
-          </AuthCon>
+          </PushAuthCon>
           <label
             className="burger-container ml-[20px] sm:hidden"
             htmlFor="burger-check"

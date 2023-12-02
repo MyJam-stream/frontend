@@ -4,6 +4,7 @@ import { ContractFactory, ethers } from 'ethers'
 import { ComethProvider } from '@cometh/connect-sdk'
 import Abi from '@/utils/contract/abi.json'
 import { erc20Bytecodes } from '@/utils/contract/bytecode'
+import { CHAIN_ID } from '@/utils/constants'
 import { useShowToast } from '@/components/Toast'
 import { walletAtom, walletAddressAtom } from '../account'
 import { pushAddressAtom } from '../push'
@@ -48,6 +49,10 @@ export const useMintTokens = () => {
       try {
         if (typeof window === 'undefined') return
         if (!window.ethereum) throw new Error('Wallet not found')
+        //TODO: abstract network watching methods
+        const network = window.ethereum.networkVersion
+        if (network !== CHAIN_ID)
+          throw new Error('wrong network, please switch to mumbai')
         const provider = new ethers.providers.Web3Provider(window.ethereum)
         const signer = provider.getSigner()
         const recieverContract = new ethers.Contract(
@@ -78,8 +83,12 @@ export const useDonate = () => {
     async (recieverAddress: string) => {
       try {
         if (typeof window === 'undefined') return
-        if (!wallet) throw new Error('Wallet not found')
-        const provider = new ComethProvider(wallet)
+        if (!window.ethereum) throw new Error('Wallet not found')
+        //TODO: abstract network watching methods
+        const network = window.ethereum.networkVersion
+        if (network !== CHAIN_ID)
+          throw new Error('wrong network, please switch to mumbai')
+        const provider = new ethers.providers.Web3Provider(window.ethereum)
         const signer = provider.getSigner()
         const tx = await signer.sendTransaction({
           to: recieverAddress,
@@ -94,10 +103,11 @@ export const useDonate = () => {
         return tx.hash
       } catch (err) {
         // throw err
+        //TODO: more clear error notification
         showToast({ content: 'failed to donate', type: 'failed' })
       }
     },
-    [wallet]
+    [window]
   )
 
   return { donate }
