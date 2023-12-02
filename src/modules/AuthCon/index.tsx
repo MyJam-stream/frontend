@@ -57,7 +57,7 @@ export const PermissionAuthCon: React.FC<
       await mint(contractAddr)
       await checkPermission(chatid)
     } catch (err) {
-      console.log(err)
+      alert(err)
     }
   }, [contractAddr, checkPermission])
   const { handleExecAction, loading } = useInTransaction(handleJoin)

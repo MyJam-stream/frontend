@@ -7,6 +7,7 @@ import {
   ConditionType,
 } from '@pushprotocol/restapi'
 import { ethers } from 'ethers'
+import { CHAIN_ID } from '@/utils/constants'
 
 export const pushAccountAtom = atom<PushAPI | null>(null)
 export const pushAddressAtom = atom<string | null>(null)
@@ -19,12 +20,16 @@ export const initializePushAtom = atom(null, async (get, set) => {
     if (!window.ethereum) {
       throw new Error('Please install MetaMask')
     }
-    const provider = await new ethers.providers.Web3Provider(window.ethereum)
+    //TODO: abstract network watching methods
+    const network = window.ethereum.networkVersion
+    if (network !== CHAIN_ID)
+      throw new Error('wrong network, please switch to mumbai')
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
     const accounts = await window.ethereum.request({
       method: 'eth_requestAccounts',
     })
 
-    const signer = await provider.getSigner()
+    const signer = provider.getSigner()
     const user = await PushAPI.initialize(signer, { env: 'staging' as Env })
     // const user = await PushAPI.initialize(signer)
     const pushAddress = await signer.getAddress()

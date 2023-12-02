@@ -47,7 +47,6 @@ const CreateStream: FC<Props> = () => {
       setchatid(chatid)
       createStream?.()
     } catch (err) {
-      // console.log(err)
       showToast({
         content: 'failed to create stream',
         type: 'failed',
