@@ -16,12 +16,12 @@ const Streaming: React.FC = () => {
         {params.title}
       </h1>
       <div className="flex justify-center items-center w-full h-fit">
-        {/* <Broadcast
+        <Broadcast
           streamKey={params.streamKey}
           controls={{ autohide: 0, hotKey: false, defaultVolume: 0.6 } as any}
           aspectRatio="16to9"
           objectFit="cover"
-        /> */}
+        />
       </div>
       <div className="mt-[27px] flex flex-row items-center justify-center gap-x-[12px]">
         <FunctionBar />
