@@ -92,8 +92,15 @@ const AboutUs: React.FC = () => {
           portability, providing more controls to musicians and audiences.
           <br />
           <br />
-          The project has served as a proof of concept during the ETHOnline
-          hackathon and underwent testing at ETHMexico.
+          The project was born as a proof of concept during the{' '}
+          <a
+            className="underline"
+            href="https://ethglobal.com/showcase/myjam-4w705"
+            target="_blank"
+          >
+            ETHOnline 2023 hackathon
+          </a>{' '}
+          and was early tested by one of our team members from ETHMexico stage.
           <br />
         </div>
       </div>
