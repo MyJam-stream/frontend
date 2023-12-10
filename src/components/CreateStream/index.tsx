@@ -6,7 +6,7 @@ import { useAtomValue } from 'jotai'
 import cx from 'clsx'
 import Switch from 'react-switch'
 import { useShowToast } from '../Toast'
-import { PushAuthCon } from '@/modules/AuthCon'
+import AuthCon from '@/modules/AuthCon'
 import { useCreateReciever } from '@/services/monetize'
 import { useCreatePushGroup, pushAddressAtom } from '@/services/push'
 import TextArea from '../TextArea'
@@ -89,7 +89,7 @@ const CreateStream: FC<Props> = () => {
             checked={monetize}
           />
         </div>
-        <PushAuthCon>
+        <AuthCon>
           <button
             className={cx(
               status === 'loading' &&
@@ -115,7 +115,7 @@ const CreateStream: FC<Props> = () => {
               Start JAMin
             </div>
           </button>
-        </PushAuthCon>
+        </AuthCon>
       </div>
     </div>
   )

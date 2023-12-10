@@ -1,12 +1,12 @@
 'use client'
 import { useAtomValue } from 'jotai'
-// import { accountAtom } from '@/services/account'
+import { useAccount } from 'wagmi'
 import { pushAddressAtom } from '@/services/push'
 import Button from '@/components/Button'
 import { shortenAddress } from '@/utils/address'
 
 const AddressBoard: React.FC = () => {
-  const address = useAtomValue(pushAddressAtom)
+  const { address } = useAccount()
 
   return (
     <Button color="white">

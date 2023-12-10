@@ -1,9 +1,10 @@
 'use client'
-import { PropsWithChildren, useCallback } from 'react'
+import { PropsWithChildren, useCallback, ReactNode } from 'react'
 import { useSearchParams } from 'next/navigation'
+import { useAccount } from 'wagmi'
 import { useAtomValue, useAtom } from 'jotai'
+import { useModal } from '@/components/Modal'
 import Button from '@/components/Button'
-import { accountAtom, useConnect } from '@/services/account'
 import {
   pushAddressAtom,
   initializePushAtom,
@@ -12,20 +13,33 @@ import {
 } from '@/services/push'
 import { useMintTokens } from '@/services/monetize'
 import useInTransaction from '@/hooks/useIntransaction'
+import WalletsBoard from './WalletsBoard'
 
-const AuthCon: React.FC<PropsWithChildren> = ({ children, ...props }) => {
-  const account = useAtomValue(accountAtom)
-  const { connect } = useConnect()
-  const { handleExecAction, loading } = useInTransaction(connect)
-  if (account) return <>{children}</>
+const AuthCon: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
-    <Button loading={loading} onClick={handleExecAction} {...props}>
-      {loading ? 'Connecting' : 'Connect'}
-    </Button>
+    <WalletAuthCon>
+      <PushAuthCon>{children}</PushAuthCon>
+    </WalletAuthCon>
   )
 }
 
 export default AuthCon
+
+export const WalletAuthCon: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
+  const { showModal } = useModal({
+    title: 'Connect to a Wallet',
+    content: <WalletsBoard />,
+  })
+  const { address } = useAccount()
+  if (address) return <>{children}</>
+  return (
+    <Button fullWidth onClick={showModal}>
+      Connect Wallet
+    </Button>
+  )
+}
 
 export const PushAuthCon: React.FC<PropsWithChildren> = ({
   children,
@@ -33,7 +47,8 @@ export const PushAuthCon: React.FC<PropsWithChildren> = ({
 }) => {
   const pushAccount = useAtomValue(pushAddressAtom)
   const [, initializePush] = useAtom(initializePushAtom)
-  const { handleExecAction, loading } = useInTransaction(initializePush)
+  const { handleExecAction, loading, error } = useInTransaction(initializePush)
+
   if (pushAccount) return <>{children}</>
   return (
     <Button loading={loading} fullWidth onClick={handleExecAction} {...props}>
@@ -48,7 +63,7 @@ export const PermissionAuthCon: React.FC<
   const permissed = useAtomValue(permissionAtom)
   const [, checkPermission] = useAtom(checkPermissionAtom)
   const searchParams = useSearchParams()
-  const contractAddr = searchParams.get('contractAddr')
+  const contractAddr = searchParams.get('contractAddr') as `0x${string}`
   const { mint } = useMintTokens()
   const handleJoin = useCallback(async () => {
     try {

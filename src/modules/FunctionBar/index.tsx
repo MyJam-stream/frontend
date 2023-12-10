@@ -10,7 +10,7 @@ import useInTransaction from '@/hooks/useIntransaction'
 import { paramsAtom } from '@/services/params'
 // import { fetchHistoryAtom } from '@/services/push'
 import { useDonate } from '@/services/monetize'
-import { PushAuthCon } from '../AuthCon'
+import { WalletAuthCon } from '../AuthCon'
 
 const FunctionBar: React.FC<ComponentProps<'div'>> = ({ ...props }) => {
   const [showBoard, toggleShowBaord] = useAtom(toggleShowBoardAtom)
@@ -43,13 +43,11 @@ const FunctionBar: React.FC<ComponentProps<'div'>> = ({ ...props }) => {
         <TempIcon curPath={false} />
       </FunctionButton> */}
       {params.creatorAddr && (
-        // <AuthCon>
-        <PushAuthCon>
+        <WalletAuthCon>
           <Button loading={loading} color="amber" onClick={handleExecAction}>
             Donate 0.01matic
           </Button>
-        </PushAuthCon>
-        // </AuthCon>
+        </WalletAuthCon>
       )}
     </div>
   )

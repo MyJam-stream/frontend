@@ -6,8 +6,8 @@ import {
   IMessageIPFS,
   ConditionType,
 } from '@pushprotocol/restapi'
-import { ethers } from 'ethers'
-import { CHAIN_ID } from '@/utils/constants'
+import { polygonMumbai } from 'wagmi/chains'
+import { getWalletClient } from 'wagmi/actions'
 
 export const pushAccountAtom = atom<PushAPI | null>(null)
 export const pushAddressAtom = atom<string | null>(null)
@@ -17,23 +17,13 @@ export const permissionAtom = atom<boolean>(false)
 export const initializePushAtom = atom(null, async (get, set) => {
   try {
     if (typeof window === 'undefined') return
-    if (!window.ethereum) {
-      throw new Error('Please install MetaMask')
-    }
-    //TODO: abstract network watching methods
-    const network = window.ethereum.networkVersion
-    if (network !== CHAIN_ID)
-      throw new Error('wrong network, please switch to mumbai')
-    const provider = new ethers.providers.Web3Provider(window.ethereum)
-    const accounts = await window.ethereum.request({
-      method: 'eth_requestAccounts',
+    const walletClient = await getWalletClient({ chainId: polygonMumbai.id })
+    if (!walletClient) throw new Error('Please connect wallet')
+    const user = await PushAPI.initialize(walletClient, {
+      env: 'staging' as Env,
     })
-
-    const signer = provider.getSigner()
-    const user = await PushAPI.initialize(signer, { env: 'staging' as Env })
-    // const user = await PushAPI.initialize(signer)
-    const pushAddress = await signer.getAddress()
-    set(pushAddressAtom, pushAddress)
+    const pushAddresses = (await walletClient.getAddresses()) as string[]
+    set(pushAddressAtom, pushAddresses[0])
     set(pushAccountAtom, user)
   } catch (err) {
     throw err

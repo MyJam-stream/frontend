@@ -1,6 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import MyJam from '@/assets/icons/myJam.svg'
+import ModalRender from '@/components/Modal'
 import { ToastRender } from '@/components/Toast'
 import Providers from '@/modules/Providers'
 import Navbar from '@/modules/NavBar'
@@ -30,14 +31,15 @@ export default function RootLayout({
       </head>
       <body>
         <>
-          <Navbar />
           <Providers>
+            <Navbar />
             <ToastRender />
+            <ModalRender />
             <div className="relative mt-[80px] flex flex-col items-center w-full min-h-[calc(100vh-80px)] max-w-[1920px]">
               {children}
             </div>
+            <Footer />
           </Providers>
-          <Footer />
         </>
       </body>
     </html>

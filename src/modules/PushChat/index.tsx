@@ -11,7 +11,7 @@ import {
   // polledMessagesAtom,
 } from '@/services/push'
 import { paramsAtom } from '@/services/params'
-import { PushAuthCon, PermissionAuthCon } from '../AuthCon'
+import AuthCon, { PermissionAuthCon } from '../AuthCon'
 
 //conditional rendering according to chatid
 const PushChat: React.FC = () => {
@@ -44,11 +44,11 @@ const PushChatCon: React.FC<{ chatid: string }> = ({ chatid }) => {
             </div>
           ))}
         </div>
-        <PushAuthCon>
+        <AuthCon>
           <PermissionAuthCon chatid={chatid}>
             <PushSendInput chatid={chatid} />
           </PermissionAuthCon>
-        </PushAuthCon>
+        </AuthCon>
       </div>
     </Board>
   )

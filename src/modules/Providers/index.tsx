@@ -3,6 +3,11 @@ import { ReactNode, useEffect } from 'react'
 import { Provider as JotaiProvider, useAtomValue, useSetAtom } from 'jotai'
 import { Env } from '@pushprotocol/restapi'
 import { createSocketConnection, EVENTS } from '@pushprotocol/socket'
+import { WagmiConfig, createConfig, configureChains } from 'wagmi'
+import { polygonMumbai } from 'wagmi/chains'
+import { publicProvider } from 'wagmi/providers/public'
+import { InjectedConnector } from 'wagmi/connectors/injected'
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 import { pushAddressAtom, pushMessagesAtom } from '@/services/push'
 import {
   LivepeerConfig,
@@ -10,7 +15,26 @@ import {
   studioProvider,
 } from '@livepeer/react'
 
-//TODO: temp
+const { publicClient, chains } = configureChains(
+  [polygonMumbai],
+  [publicProvider()]
+)
+
+const wagmiConfig = createConfig({
+  autoConnect: false,
+  publicClient,
+  connectors: [
+    new InjectedConnector({ chains }),
+    new WalletConnectConnector({
+      chains,
+      options: {
+        projectId: 'cd2a58b521af06038b4edaba4fadc914',
+      },
+    }),
+  ],
+})
+
+//Livepeer client
 const client = createReactClient({
   provider: studioProvider({
     apiKey: process.env.NEXT_PUBLIC_LIVEPEER_API_KEY as string,
@@ -20,9 +44,11 @@ const client = createReactClient({
 const Providers: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <JotaiProvider>
-      <LivepeerConfig client={client}>
-        <PushProvider>{children}</PushProvider>
-      </LivepeerConfig>
+      <WagmiConfig config={wagmiConfig}>
+        <LivepeerConfig client={client}>
+          <PushProvider>{children}</PushProvider>
+        </LivepeerConfig>
+      </WagmiConfig>
     </JotaiProvider>
   )
 }
