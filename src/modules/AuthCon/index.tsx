@@ -1,10 +1,12 @@
 'use client'
 import { PropsWithChildren, useCallback, ReactNode } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { useAccount } from 'wagmi'
+import { useAccount, useNetwork, useSwitchNetwork } from 'wagmi'
+import { polygonMumbai } from 'wagmi/chains'
 import { useAtomValue, useAtom } from 'jotai'
 import { useModal } from '@/components/Modal'
 import Button from '@/components/Button'
+import { useShowToast } from '@/components/Toast'
 import {
   pushAddressAtom,
   initializePushAtom,
@@ -32,8 +34,39 @@ export const WalletAuthCon: React.FC<{ children: ReactNode }> = ({
     title: 'Connect to a Wallet',
     content: <WalletsBoard />,
   })
+  const showToast = useShowToast()
   const { address } = useAccount()
-  if (address) return <>{children}</>
+  const { chain } = useNetwork()
+  const { isLoading, switchNetwork } = useSwitchNetwork({
+    chainId: polygonMumbai.id,
+    onError(error) {
+      showToast({
+        content: error.message,
+        type: 'failed',
+      })
+    },
+    onSuccess() {
+      showToast({
+        content: 'Switched to Polygon Mumbai',
+        type: 'success',
+      })
+    },
+  })
+  const chainMatched = chain?.id === polygonMumbai.id
+
+  if (address && chainMatched) return <>{children}</>
+  else if (address && !chainMatched)
+    return (
+      <Button
+        fullWidth
+        loading={isLoading}
+        onClick={() => {
+          switchNetwork?.(polygonMumbai.id)
+        }}
+      >
+        Switch Network
+      </Button>
+    )
   return (
     <Button fullWidth onClick={showModal}>
       Connect Wallet
