@@ -1,7 +1,7 @@
 'use client'
 import { ReactNode, useEffect } from 'react'
 import { Provider as JotaiProvider, useAtomValue, useSetAtom } from 'jotai'
-import { Env } from '@pushprotocol/restapi'
+import { Env, IMessageIPFS } from '@pushprotocol/restapi'
 import { createSocketConnection, EVENTS } from '@pushprotocol/socket'
 import { WagmiConfig, createConfig, configureChains } from 'wagmi'
 import { polygonMumbai } from 'wagmi/chains'
@@ -72,8 +72,8 @@ export const PushProvider: React.FC<{ children: ReactNode }> = ({
     })
     if (!pushSDKSocket) return
     // TODO:
-    pushSDKSocket.on(EVENTS.CHAT_RECEIVED_MESSAGE, (message) => {
-      setPushMessages((messages) => [...messages, message.messageObj.content])
+    pushSDKSocket.on(EVENTS.CHAT_RECEIVED_MESSAGE, (message: IMessageIPFS) => {
+      setPushMessages((messages) => [...messages, message])
     })
     return () => {
       pushSDKSocket.disconnect()

@@ -7,6 +7,7 @@ import Guitar from '@/assets/imgs/guitar.png'
 import SGrass from '@/assets/imgs/sGrass.png'
 import WaterMelon from '@/assets/imgs/watermelon.png'
 import Button from '@/components/Button'
+import Footer from '@/modules/Footer'
 import Roadmap from './Roadmap'
 
 export default function Home() {
@@ -63,6 +64,7 @@ export default function Home() {
       </div>
       <AboutUs />
       <Roadmap />
+      <Footer />
     </>
   )
 }

@@ -11,7 +11,7 @@ import { getWalletClient } from 'wagmi/actions'
 
 export const pushAccountAtom = atom<PushAPI | null>(null)
 export const pushAddressAtom = atom<string | null>(null)
-export const pushMessagesAtom = atom<string[]>([])
+export const pushMessagesAtom = atom<IMessageIPFS[]>([])
 export const permissionAtom = atom<boolean>(false)
 
 export const initializePushAtom = atom(null, async (get, set) => {
@@ -117,14 +117,9 @@ export const fetchHistoryAtom = atom(null, async (get, set, chatid: string) => {
     if (typeof window === 'undefined') return
     const pushAccount = get(pushAccountAtom)
     if (!pushAccount || !chatid) return
-    // throw new Error('Please initialize push account')
     const historyRes = await pushAccount.chat.history(chatid)
-    const historyMessages: string[] = []
     const orderedHisRes = historyRes.reverse()
-    orderedHisRes.forEach((message) => {
-      historyMessages.push(message.messageContent)
-    })
-    set(pushMessagesAtom, [...historyMessages])
+    set(pushMessagesAtom, [...orderedHisRes])
   } catch (err) {
     throw err
   }

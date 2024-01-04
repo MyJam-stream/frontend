@@ -1,9 +1,11 @@
 'use client'
 import { useEffect, useCallback } from 'react'
 import { useAtomValue, useAtom } from 'jotai'
+import { IMessageIPFS } from '@pushprotocol/restapi'
 import Button from '@/components/Button'
 import Board from '@/components/Board'
 import PushSendInput from './PushSendInput'
+import { didDisplay } from '@/utils/didFormat'
 import {
   pushAccountAtom,
   pushMessagesAtom,
@@ -37,11 +39,12 @@ const PushChatCon: React.FC<{ chatid: string }> = ({ chatid }) => {
   return (
     <Board title="Push Chatting" className="flex flex-col">
       <div className="flex flex-col justify-between grow">
-        <div className="flex-col gap-y-[25px]">
+        <div className="flex flex-col gap-y-[25px]">
           {pushMessages?.map((message, index) => (
-            <div className="text-16px leading-24px text-[#ffffff]" key={index}>
-              {message}
-            </div>
+            <ChatItem
+              key={`${message.timestamp}-${message.fromDID}`}
+              message={message}
+            />
           ))}
         </div>
         <AuthCon>
@@ -51,6 +54,20 @@ const PushChatCon: React.FC<{ chatid: string }> = ({ chatid }) => {
         </AuthCon>
       </div>
     </Board>
+  )
+}
+
+const ChatItem: React.FC<{ message: IMessageIPFS }> = ({ message }) => {
+  return (
+    <div className="grid grid-rows-[42px_auto] grid-cols-[42px_auto] gap-x-[16px]">
+      <div className="w-[42px] h-[42px] rounded-[21px] bg-[rgba(199,103,173,1)]"></div>
+      <div className="flex items-center text-[16px] font-bold text-[#ffffff]">
+        {didDisplay(message.fromDID)}
+      </div>
+      <div className="col-start-2 text-[16px] leading-[24px] text-[#ffffff]">
+        {message.messageContent}
+      </div>
+    </div>
   )
 }
 

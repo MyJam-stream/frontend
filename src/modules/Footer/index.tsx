@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import { TwitterIcon, LensIcon, GithubIcon } from '@/components/Icons'
 const Footer: React.FC = () => {
   return (
-    <div className="flex flex-col w-full items-centerw-full border-t-[1px] border-t-solid border-t-[#fff] rounded-t-[12px] bg-[rgba(255,255,255,0.08)]">
+    <div className="flex flex-col w-full items-center w-full min-w-[100vw] border-t-[1px] border-t-solid border-t-[#fff] rounded-t-[12px] bg-[rgba(255,255,255,0.08)]">
       <div className="flex flex-col justify-center items-center w-full max-w-[1920px] h-[257px]">
         <div className="mb-[40px] font-semibold text-[48px] leading-[67.2px]">
           Contacts
@@ -51,7 +51,7 @@ export const FootNote: React.FC = () => {
   return (
     <div className="relative w-full">
       <div className="relative flex flex-col justify-center items-center h-[73px] font-light text-[12px] leading-[24px]">
-        @2023 MyJam
+        @2024 MyJam
       </div>
     </div>
   )
