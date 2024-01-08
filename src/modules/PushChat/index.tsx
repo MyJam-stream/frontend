@@ -36,7 +36,10 @@ const PushChatCon: React.FC<{ chatid: string }> = ({ chatid }) => {
     }
   }, [pushAccount])
   return (
-    <Board title="Push Chatting" className="flex flex-col">
+    <Board
+      title="Push Chatting"
+      className="flex flex-col h-full overflow-y-scroll"
+    >
       <div className="flex flex-col justify-between grow">
         <div className="flex flex-col gap-y-[25px]">
           {pushMessages?.map((message) => (
