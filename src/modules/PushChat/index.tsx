@@ -38,10 +38,10 @@ const PushChatCon: React.FC<{ chatid: string }> = ({ chatid }) => {
   return (
     <Board
       title="Push Chatting"
-      className="flex flex-col h-full overflow-y-scroll"
+      className="flex flex-col h-full overflow-hidden"
     >
-      <div className="flex flex-col justify-between grow">
-        <div className="flex flex-col gap-y-[25px]">
+      <div className="flex flex-col justify-between grow h-[calc(100%-72px)]">
+        <div className="flex flex-col gap-y-[25px] h-[calc(100%-48px)] overflow-y-scroll">
           {pushMessages?.map((message) => (
             <ChatItem
               key={`${message.timestamp}-${message.fromDID}`}
