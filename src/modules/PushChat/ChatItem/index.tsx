@@ -35,7 +35,7 @@ const ChatItem: React.FC<{ message: IMessageIPFS }> = ({ message }) => {
       <div
         className={cx(
           'text-[16px] leading-[24px] text-[#ffffff]',
-          isCurrentAddress ? 'order-3 justify-self-end' : 'col-start-2'
+          isCurrentAddress ? 'order-3 justify-self-end text-end' : 'col-start-2'
         )}
       >
         {message.messageContent}
