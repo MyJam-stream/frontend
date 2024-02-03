@@ -7,6 +7,8 @@ const NavLink: React.FC<ComponentProps<typeof Link> & { curPath: string }> = ({
   href,
   children,
   curPath,
+  className,
+  ...props
 }) => (
   <li
     className={cx(
@@ -17,8 +19,12 @@ const NavLink: React.FC<ComponentProps<typeof Link> & { curPath: string }> = ({
     )}
   >
     <Link
-      className="flex items-center w-full h-full decoration-none "
+      className={cx(
+        'flex items-center w-full h-full decoration-none ',
+        className
+      )}
       href={href}
+      {...props}
     >
       {children}
     </Link>
@@ -43,7 +49,11 @@ const Mobile: React.FC<{ open: boolean; curPath: string }> = ({
         <NavLink href="/stream" curPath={curPath}>
           Create
         </NavLink>
-        <NavLink href="/stream" curPath={curPath}>
+        <NavLink
+          href="/stream"
+          curPath={curPath}
+          className="!cursor-not-allowed"
+        >
           view
         </NavLink>
       </ul>

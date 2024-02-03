@@ -6,6 +6,7 @@ import Link from 'next/link'
 import cx from 'clsx'
 import MJHeader from '@/assets/icons/MJheader.svg'
 import { HomeIcon, MicIcon, VoiceIcon } from '@/components/Icons'
+import ToolTip from '@/components/Tooltip'
 import AuthCon, { PushAuthCon } from '@/modules/AuthCon'
 import AddressBoard from '../AddrBoard'
 import Mobile from './Mobile'
@@ -16,6 +17,8 @@ const NavLink: React.FC<ComponentProps<typeof Link> & { curPath: boolean }> = ({
   href,
   children,
   curPath,
+  className,
+  ...props
 }) => (
   <li
     className={cx(
@@ -24,8 +27,12 @@ const NavLink: React.FC<ComponentProps<typeof Link> & { curPath: boolean }> = ({
     )}
   >
     <Link
-      className="flex items-center justify-center w-full h-full text-#147240 decoration-none"
+      className={cx(
+        'flex items-center justify-center w-full h-full text-#147240 decoration-none',
+        className
+      )}
       href={href}
+      {...props}
     >
       {children}
     </Link>
@@ -69,9 +76,15 @@ const Navbar: React.FC = () => {
           <NavLink href="/stream" curPath={curPath === '/stream'}>
             <MicIcon curPath={curPath === '/stream'} />
           </NavLink>
-          <NavLink href="/view" curPath={curPath === '/view'}>
-            <VoiceIcon curPath={curPath === '/view'} />
-          </NavLink>
+          <ToolTip text="Coming soon" options={{ placement: 'bottom' }}>
+            <NavLink
+              href="/view"
+              curPath={curPath === '/view'}
+              className="!cursor-not-allowed"
+            >
+              <VoiceIcon curPath={curPath === '/view'} />
+            </NavLink>
+          </ToolTip>
         </ul>
         <div className="ml-[12px] flex flex-row justify-between items-center gap-x-[8px]">
           <AuthCon>
