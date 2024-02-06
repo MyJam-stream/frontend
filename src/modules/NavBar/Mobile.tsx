@@ -49,13 +49,13 @@ const Mobile: React.FC<{ open: boolean; curPath: string }> = ({
         <NavLink href="/stream" curPath={curPath}>
           Create
         </NavLink>
-        <NavLink
+        {/* <NavLink
           href="/stream"
           curPath={curPath}
           className="!cursor-not-allowed"
         >
           view
-        </NavLink>
+        </NavLink> */}
       </ul>
     </div>
   )
