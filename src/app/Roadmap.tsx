@@ -17,7 +17,7 @@ const Roadmap: React.FC = () => {
       </div>
       <div className="relative mx-auto mb-[48px] w-full max-w-[800px]">
         <div className="absolute bottom-[0px] left-[16px] sm:left-[50%] -ml-[1.5px] w-[3px] h-[66.7%] opacity-30" />
-        <ScrollProgress containerId="process" gradientPer={33} />
+        <ScrollProgress containerId="process" gradientPer={50} />
         <div className="w-full" id="process">
           <div className="w-full" id="processPassed">
             {RoadmapPassedItems.map((item) => (

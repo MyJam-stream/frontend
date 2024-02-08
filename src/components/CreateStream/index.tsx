@@ -68,7 +68,7 @@ const CreateStream: FC<Props> = () => {
 
   return (
     <div className="pb-[32px] flex justify-center items-center w-full h-full">
-      <div className="w-[311px] h-[337px] p-[27px] bg-black bg-opacity-10 rounded-xl backdrop-blur-[306px] flex-col justify-start items-start gap-[29px] inline-flex">
+      <div className="w-[311px] min-h-[337px] p-[27px] bg-black bg-opacity-10 rounded-xl backdrop-blur-[306px] flex-col justify-start items-start gap-[29px] inline-flex">
         <div className="text-white text-2xl font-semibold font-['Poppins'] leading-9">
           {streamName ? streamName : 'New JAM'}
         </div>
