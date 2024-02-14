@@ -10,7 +10,7 @@ interface Props {
 }
 
 // const showBoardAtom = atom(false)
-const showBoardAtom = atom(true)
+const showBoardAtom = atom(false)
 
 export const toggleShowBoardAtom = atom(
   (get) => get(showBoardAtom),
