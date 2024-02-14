@@ -67,11 +67,7 @@ export const WalletAuthCon: React.FC<{ children: ReactNode }> = ({
         Switch Network
       </Button>
     )
-  return (
-    <Button fullWidth onClick={showModal}>
-      Connect Wallet
-    </Button>
-  )
+  return <Button onClick={showModal}>Connect Wallet</Button>
 }
 
 export const PushAuthCon: React.FC<PropsWithChildren> = ({
