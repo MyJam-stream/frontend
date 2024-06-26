@@ -23,19 +23,19 @@ export const RoadmapPassedItems: RoadmapItemProps[] = [
 
 export const RoadmapUnpassedItems: RoadmapItemProps[] = [
   {
-    date: 'February 2024',
-    title: 'Enhancing Creator Monetizing methods',
+    date: '2024',
+    title: 'Launch to Public',
     description:
-      'Enable musicians to monetizing on watching streaming. Provide various options for creators to monetizing on watching streaming, engagement and donation.',
+      'Open to public to enable real-time and mature usage for musicians.',
   },
   {
-    date: 'March 2024',
+    date: '2024',
     title: 'Recommendation and schedule system',
     description:
       'Implement a scheduling system to allow users to plan and announce live streams in advance.',
   },
   {
-    date: 'April 2024',
+    date: '2024',
     title: 'Identity and Cross-Platform Integration',
     description:
       "Explore opportunities for cross-platform integration, expanding MyJam's accessibility.",
